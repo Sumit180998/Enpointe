@@ -48,7 +48,7 @@ function UserList() {
         .then((res)=>{
             console.log(res)
             UserDate()
-            alert( `status:  ${res.status}`)
+            alert( `status:  ${res.status}       Delete Successful`)
         })
         .catch((err)=>{
             console.log(err)
