@@ -1,0 +1,71 @@
+
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0; 
+    animation: fadeIn 1s forwards; 
+  }
+  
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+
+  .form-card {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .form-control {
+    transition: all 0.3s ease;
+  }
+  
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  }
+  
+
+  .btn {
+    position: relative;
+    animation: buttonAnimation 1s ease-in-out infinite alternate;
+  }
+  
+ 
+  @keyframes buttonAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-10px);
+    }
+  }
+  
+
+  .avatar-preview {
+    max-width: 150px;
+    border-radius: 50%;
+    margin-top: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .avatar-preview:hover {
+    transform: scale(1.1);
+  }
+  
+ 
+  .invalid-feedback {
+    font-size: 0.875em;
+    color: #dc3545;
+  }
+  
