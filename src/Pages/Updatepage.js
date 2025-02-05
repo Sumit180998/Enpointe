@@ -115,7 +115,7 @@ const[loading,setloading]=useState(false)
             id="id"
             name="id"
             value={userData.id}
-            onChange={handleChange}
+            // onChange={handleChange}
             className="form-control"
             disabled
           />
