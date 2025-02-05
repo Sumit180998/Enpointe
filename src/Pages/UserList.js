@@ -75,8 +75,8 @@ function UserList() {
     <div className="container-fluid pd-4 user-list-container">
       <h2 className="mb-4 text-center text-primary">User List</h2>
       <div className="d-flex justify-content-end mb-3">
-       
-          <button className="btn btn-success upload-btn" onClick={()=>Navigate("/users/add")}>Go to Upload Page</button>
+
+          <button className="btn btn-success upload-btn" onClick={()=>Navigate("/users/add")}>Go to Upload Pages</button>
         
       </div>
       <input
