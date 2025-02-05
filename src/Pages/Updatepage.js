@@ -2,12 +2,14 @@ import React, { useState,useEffect } from 'react';
 import { v4 as uuid } from "uuid";
 import './UserForm.css'; 
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import Loader from '../loading/Loader';
 
 const Updatepage = () => {
 
 const {id}=useParams()
+const Navigate=useNavigate()
+const[loading,setloading]=useState(false)
   const [userData, setUserData] = useState({
     id: '',
     email: "",
@@ -63,15 +65,20 @@ const {id}=useParams()
     e.preventDefault();
   
     if (validateForm()) {
-   
+        setloading(true)
       await axios.post('https://reqres.in/api/users',{
         first_name:userData.first_name,
         last_name:userData.last_name,
         email:userData.email,
         avatar:userData.avatar
       })
-      .then((res)=>{console.log(res)})
-      .catch((err)=>{console.log(err)})
+      .then((res)=>{console.log(res)
+        setloading(res.status)
+        setTimeout(()=>{ Navigate('/')},1000)
+      })
+      .catch((err)=>{console.log(err)
+        setloading(false)
+      })
       setErrors({});
     }
   };
@@ -96,7 +103,9 @@ const {id}=useParams()
 
   return (
     <div className="container form-container pd-5">
-        <Loader/>
+    <button className="btn btn-secondary mb-4" onClick={()=>Navigate('/')} >
+        Back
+      </button>
       <h2 className="text-center mb-4">User Form</h2>
       <form onSubmit={handleSubmit} className="form-card p-4 rounded shadow">
         <div className="form-group">
@@ -165,7 +174,7 @@ const {id}=useParams()
         </div>
 
         <div className="text-center mt-4">
-          <button type="submit" className="btn btn-primary btn-block">Submit</button>
+        {loading===true? <button className="btn btn-primary btn-block"><Loader/></button>: loading==false?<button type="submit" className="btn btn-primary btn-block">Submit</button>:<h2 style={{color:'green'}}>Data is Submit status:{loading}</h2>} 
         </div>
       </form>
 

@@ -3,9 +3,10 @@ import { v4 as uuid } from "uuid";
 import './UserForm.css'; 
 import axios from 'axios';
 import Loader from '../loading/Loader';
+import { useNavigate } from 'react-router-dom';
 
 const UserForm = () => {
-
+const Navigate=useNavigate()
 const[loading,setloading]=useState(false)
   const [userData, setUserData] = useState({
     id: '',
@@ -69,15 +70,22 @@ const[loading,setloading]=useState(false)
         avatar:userData.avatar
       })
       .then((res)=>{console.log(res)
+        setloading(res.status)
+        setTimeout(()=>{ Navigate('/')},1000)
+        
+      })
+      .catch((err)=>{console.log(err)
         setloading(false)
       })
-      .catch((err)=>{console.log(err)})
       setErrors({});
     }
   };
 
   return (
     <div className="container form-container mt-5">
+        <button className="btn btn-secondary mb-4" onClick={()=>Navigate('/')} >
+        Back
+      </button>
       <h2 className="text-center mb-4">User Form</h2>
       <form onSubmit={handleSubmit} className="form-card p-4 rounded shadow">
         <div className="form-group">
@@ -146,7 +154,7 @@ const[loading,setloading]=useState(false)
         </div>
 
         <div className="text-center mt-4">
-        {loading===true?<Loader/>: <button type="submit" className="btn btn-primary btn-block">Submit</button>} 
+        {loading===true? <button className="btn btn-primary btn-block"><Loader/></button>: loading==false?<button type="submit" className="btn btn-primary btn-block">Submit</button>:<h2 style={{color:'green'}}>Data is Submit status:{loading}</h2>} 
         </div>
       </form>
 

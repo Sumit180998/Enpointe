@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 function UserList() {
     const[usersData,setusersData]=useState([])
-    const[page, setpage]=useState(2)
+    const[currentPage, setcurrentPage]=useState(1)
+    const[totalpage,settotalpage]=useState()
     const [search, setSearch] = useState("");
     const [sortBy, setSortBy] = useState(null);
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
@@ -47,7 +48,7 @@ function UserList() {
         .then((res)=>{
             console.log(res)
             UserDate()
-            alert()
+            alert( `status:  ${res.status}`)
         })
         .catch((err)=>{
             console.log(err)
@@ -59,9 +60,15 @@ function UserList() {
       
       
        async function UserDate(){
-        await axios.get(`https://reqres.in/api/users?page=${page}`)
+        await axios.get(`https://reqres.in/api/users?page=${currentPage}`)
         .then((res)=>{
-            console.log(res)
+            console.log(res.data.total_pages)
+            let c=res.data.total_pages
+            let total=[]
+            for(let i=1;i<=2;i++){
+                total.push(i)
+            }
+            settotalpage(total)
             setusersData(res.data.data)
         })
         .catch((err)=>{
@@ -70,15 +77,13 @@ function UserList() {
        }
        useEffect(()=>{
         UserDate()
-       },[])
+       },[currentPage])
   return (
     <div className="container-fluid pd-4 user-list-container">
       <h2 className="mb-4 text-center text-primary">User List</h2>
-      <div className="d-flex justify-content-end mb-3">
-
-          <button className="btn btn-success upload-btn" onClick={()=>Navigate("/users/add")}>Go to Upload Pages</button>
-        
-      </div>
+      
+  
+      
       <input
         type="text"
         placeholder="Search by name or email"
@@ -94,6 +99,9 @@ function UserList() {
           Sort by Email
         </button>
       </div>
+      <div className="d-flex justify-content-end mb-3">
+      <button className="btn btn-success " onClick={()=>Navigate("/users/add")}>Go to Upload Pages</button>
+      </div>
       <div className="row">
         {sortedUsers.map((user) => (
           <div className="col-md-4 mb-3" key={user.id}>
@@ -103,12 +111,23 @@ function UserList() {
               <p className="text-muted">{user.email}</p>
               <button className="delete-button" onClick={() => handleDeleteClick(user.id)}>  &#10005;</button>
               <button className="update-button" onClick={() => handleUpdate(user.id)}>  &#9998;   </button>
-              <button onClick={()=>Navigate(`/users/${user.id}`)}>Detail page</button>
+              <button  className="button" onClick={()=>Navigate(`/users/${user.id}`)}>Detail page</button>
             </div>
           </div>
         ))}
       </div>
-
+         {
+            totalpage?.map((page)=>(
+                <button
+            key={page}
+            className={`pagination-button ${currentPage === page ? 'active' : ''}`}
+            onClick={() => setcurrentPage(page)}
+            disabled={currentPage === page}
+          >
+            {page}
+          </button>
+            ))
+         }
       {showConfirmDialog && (
         <div className="confirmation-dialog">
           <div className="dialog-overlay" onClick={handleDeleteCancel}></div>

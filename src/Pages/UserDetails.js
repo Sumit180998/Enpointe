@@ -5,15 +5,12 @@ import { v4 as uuid } from "uuid";
 import "./UserDetails.css";
 
 function UserDetails() {
-    const history = useNavigate();
+    const Navigate = useNavigate();
     const[ user,setuser]=useState({})
     const {id}=useParams()
  
    
   
-    const goBack = () => {
-      history('/');
-    };
 
     async function UserDetailsDate(){
         await axios.get(`https://reqres.in/api/users/${id}`)
@@ -31,9 +28,7 @@ function UserDetails() {
   
   return (
     <div className="container ">
-      <button className="btn btn-secondary mb-4" 
-      onClick={goBack}
-      >
+      <button className="btn btn-secondary mb-4" onClick={()=>Navigate('/')} >
         Back
       </button>
       <div className="row justify-content-center">
