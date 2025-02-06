@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useLayoutEffect } from 'react'
 import "./UserList.css";
 import { useNavigate } from 'react-router-dom';
 
@@ -75,14 +75,21 @@ function UserList() {
             console.log(err)
         })
        }
+       useLayoutEffect(() => {
+        console.log('pp');
+         
+       }, [])
+
        useEffect(()=>{
         UserDate()
+       console.log('25');
+        
        },[currentPage])
   return (
     <div className="container-fluid pd-4 user-list-container">
       <h2 className="mb-4 text-center text-primary">User List</h2>
       
-  
+  {console.log('kkk')}
       
       <input
         type="text"
