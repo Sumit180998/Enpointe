@@ -9,8 +9,8 @@ import RoutesEnpoint from './EnpointeRoutes/RoutesEnpoint';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
-    {/* <RoutesEnpoint/> */}
+    {/* <App /> */}
+    <RoutesEnpoint/>
   </React.StrictMode>
 );
 
